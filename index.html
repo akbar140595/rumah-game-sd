@@ -1,0 +1,1246 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RUMAH GAME EDUKASI SD - Muh. Akbar S., S.Pd. (SDN 009 Balikpapan Barat)</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Google Fonts: Bangers, M PLUS Rounded 1c, Poppins -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bangers&family=M+PLUS+Rounded+1c:wght@700;800;900&family=Poppins:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        bangers: ['Bangers', 'cursive'],
+                        mplus: ['"M PLUS Rounded 1c"', 'sans-serif'],
+                        poppins: ['Poppins', 'sans-serif'],
+                    },
+                    colors: {
+                        pop: {
+                            yellow: '#FFE600',
+                            magenta: '#FF007A',
+                            cyan: '#00F0FF',
+                            lime: '#00FF66',
+                            purple: '#8A2BE2',
+                            orange: '#FF5500',
+                            dark: '#111116',
+                        }
+                    },
+                    boxShadow: {
+                        'pop-sm': '3px 3px 0px #111116',
+                        'pop': '5px 5px 0px #111116',
+                        'pop-lg': '8px 8px 0px #111116',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #FFE600;
+            background-image: 
+                radial-gradient(#FF007A 15%, transparent 16%),
+                radial-gradient(#111116 15%, transparent 16%);
+            background-size: 32px 32px;
+            background-position: 0 0, 16px 16px;
+            background-attachment: fixed;
+            color: #111116;
+            overflow-x: hidden;
+        }
+
+        .speedlines {
+            background: repeating-conic-gradient(
+                from 0deg,
+                rgba(255, 255, 255, 0.12) 0deg 10deg,
+                transparent 10deg 20deg
+            );
+        }
+
+        .pop-btn {
+            transition: all 0.12s ease-out;
+            border: 3.5px solid #111116;
+        }
+        .pop-btn:hover {
+            transform: translate(-3px, -3px);
+            box-shadow: 7px 7px 0px #111116;
+        }
+        .pop-btn:active {
+            transform: translate(2px, 2px);
+            box-shadow: 2px 2px 0px #111116;
+        }
+
+        .pop-card {
+            border: 4px solid #111116;
+            transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .pop-card:hover {
+            transform: translateY(-6px) rotate(-1deg);
+            box-shadow: 10px 10px 0px #111116;
+        }
+
+        @keyframes pop-float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-8px) rotate(3deg); }
+        }
+        .animate-pop-float {
+            animation: pop-float 3s infinite ease-in-out;
+        }
+
+        .click-particle {
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            font-family: 'Bangers', cursive;
+            font-size: 1.8rem;
+            color: #FFE600;
+            -webkit-text-stroke: 2px #111116;
+            text-shadow: 3px 3px 0px #FF007A;
+            animation: particle-fly 0.75s cubic-bezier(0.1, 0.8, 0.3, 1) forwards;
+        }
+
+        @keyframes particle-fly {
+            0% {
+                opacity: 1;
+                transform: translate(-50%, -50%) scale(0.4) rotate(0deg);
+            }
+            50% {
+                transform: translate(-50%, -90px) scale(1.3) rotate(15deg);
+            }
+            100% {
+                opacity: 0;
+                transform: translate(-50%, -150px) scale(-15deg);
+            }
+        }
+
+        ::-webkit-scrollbar {
+            width: 12px;
+            height: 12px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #FF007A;
+            border-left: 3px solid #111116;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #00F0FF;
+            border: 3px solid #111116;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #FFE600;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col relative select-none" onclick="spawnPopParticle(event)">
+
+    <div class="relative z-10 flex-grow flex flex-col">
+
+        <!-- HEADER NAVIGATION -->
+        <header class="bg-white border-b-4 border-black sticky top-0 z-40 shadow-pop">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex flex-wrap items-center justify-between gap-3">
+                
+                <!-- Logo & Author Branding -->
+                <div class="flex items-center gap-3 cursor-pointer group" onclick="resetFilters()">
+                    <div class="w-13 h-13 bg-pop-magenta border-3 border-black rounded-2xl flex items-center justify-center text-white text-2xl shadow-pop-sm group-hover:rotate-12 transition-transform p-2">
+                        <i class="fa-solid fa-gamepad text-pop-yellow text-3xl drop-shadow-[2px_2px_0px_#000]"></i>
+                    </div>
+                    <div>
+                        <div class="flex items-center gap-2 flex-wrap">
+                            <h1 class="font-bangers text-3xl sm:text-4xl tracking-wider text-pop-dark leading-none drop-shadow-[2px_2px_0px_#00F0FF]">
+                                RUMAH GAME <span class="text-pop-magenta drop-shadow-[2px_2px_0px_#FFE600]">EDUKASI SD</span>
+                            </h1>
+                        </div>
+                        <p class="font-poppins text-xs font-black text-slate-800 tracking-wide flex items-center gap-1.5 mt-0.5">
+                            <i class="fa-solid fa-user-ninja text-pop-magenta"></i>
+                            <span class="bg-pop-yellow px-2 py-0.5 border border-black rounded text-[11px] font-extrabold">
+                                KARYA: MUH. AKBAR S., S.Pd. • SDN 009 BALIKPAPAN BARAT
+                            </span>
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Navigation Controls -->
+                <div class="flex flex-wrap items-center gap-2">
+                    
+                    <!-- Sound Toggle Button -->
+                    <button id="sound-toggle" onclick="toggleAudio(event)" 
+                        class="pop-btn bg-pop-cyan text-black px-3 py-1.5 rounded-xl font-extrabold text-xs sm:text-sm flex items-center gap-2 shadow-pop-sm" 
+                        title="Efek Suara Arcade">
+                        <i class="fa-solid fa-volume-high text-base" id="sound-icon"></i>
+                        <span id="sound-text" class="hidden sm:inline font-bangers tracking-wider text-base">SFX ON</span>
+                    </button>
+
+                    <!-- ADD GAME BUTTON -->
+                    <button onclick="toggleAddGameModal(true, event)" 
+                        class="pop-btn bg-pop-yellow hover:bg-pop-lime text-black px-3.5 py-1.5 rounded-xl font-black text-xs sm:text-sm flex items-center gap-2 shadow-pop-sm"
+                        title="Tambah Game Pembelajaran Baru">
+                        <i class="fa-solid fa-plus-circle text-pop-magenta text-base"></i>
+                        <span class="font-bangers tracking-wider text-base">TAMBAH GAME</span>
+                    </button>
+
+                    <!-- Favorites Pill -->
+                    <button onclick="filterFavorites(event)" 
+                        class="pop-btn bg-pop-magenta text-white px-3 py-1.5 rounded-xl font-extrabold text-xs sm:text-sm flex items-center gap-2 shadow-pop-sm">
+                        <i class="fa-solid fa-heart text-pop-yellow"></i>
+                        <span class="font-bangers tracking-wider text-base hidden sm:inline">FAVORIT</span>
+                        <span id="fav-count-badge" class="bg-pop-yellow text-black border-2 border-black px-2 py-0.5 rounded-lg text-xs font-black">0</span>
+                    </button>
+
+                    <!-- Info & Tutorial Modal Button -->
+                    <button onclick="toggleInfoModal(true, event)" 
+                        class="pop-btn bg-white text-black px-3 py-1.5 rounded-xl font-black text-sm shadow-pop-sm" title="Petunjuk & Cara Bermain">
+                        <i class="fa-solid fa-circle-question text-lg"></i>
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- HERO BANNER -->
+        <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 pb-2 w-full">
+            <div class="bg-pop-purple border-4 border-black rounded-3xl p-6 sm:p-8 shadow-pop-lg relative overflow-hidden text-white speedlines">
+                
+                <div class="absolute -top-3 -right-3 bg-pop-yellow text-black border-4 border-black font-bangers text-xl px-4 py-1.5 rounded-full rotate-12 shadow-pop z-20 animate-pop-float">
+                    ⚡ SDN 009 BALIKPAPAN BARAT
+                </div>
+
+                <div class="relative z-10 flex flex-col md:flex-row items-center justify-between gap-6">
+                    <div class="space-y-3 max-w-2xl text-center md:text-left">
+                        <div class="inline-flex items-center gap-2 bg-pop-cyan text-black border-3 border-black font-extrabold px-3 py-1 rounded-xl text-xs uppercase shadow-pop-sm">
+                            <i class="fa-solid fa-graduation-cap text-pop-magenta text-sm"></i> MEDIA PEMBELAJARAN INTERAKTIF SD
+                        </div>
+                        <h2 class="font-bangers text-4xl sm:text-5xl lg:text-6xl text-pop-yellow tracking-wide leading-tight drop-shadow-[4px_4px_0px_#111116]">
+                            RUMAH GAME EDUKASI SD! 🚀
+                        </h2>
+                        <p class="font-poppins text-white font-bold text-sm sm:text-base drop-shadow-[1px_1px_0px_#111116]">
+                            Koleksi media pembelajaran interaktif berbasis game untuk siswa Sekolah Dasar. Dikembangkan oleh <strong class="text-pop-yellow underline">Muh. Akbar S., S.Pd. (SDN 009 Balikpapan Barat)</strong>.
+                        </p>
+                    </div>
+
+                    <!-- Hero Graphic Badge -->
+                    <div class="flex items-center justify-center gap-3 bg-white text-black border-4 border-black p-4 rounded-2xl shadow-pop transform -rotate-1 min-w-[260px]">
+                        <div class="text-4xl">🎮</div>
+                        <div class="text-left">
+                            <div class="font-mplus text-[10px] font-black text-pop-magenta uppercase tracking-wider flex items-center gap-1">
+                                <i class="fa-solid fa-bolt text-xs text-pop-yellow"></i> PORTAL GAME EDUKASI
+                            </div>
+                            <div class="font-bangers text-xl text-pop-dark leading-none">PEMBELAJARAN INTERAKTIF</div>
+                            <div class="font-poppins text-[10px] font-black text-slate-700 uppercase mt-0.5 truncate max-w-[180px]">
+                                SDN 009 Balikpapan Barat
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SEARCH & CATEGORY FILTER BAR -->
+        <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5 w-full sticky top-[75px] z-30">
+            <div class="bg-white border-4 border-black p-4 rounded-2xl shadow-pop space-y-3">
+                
+                <div class="flex flex-col lg:flex-row items-center justify-between gap-4">
+                    
+                    <!-- Search Input Box -->
+                    <div class="relative w-full lg:w-96">
+                        <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-black">
+                            <i class="fa-solid fa-magnifying-glass text-lg"></i>
+                        </div>
+                        <input type="text" id="search-input" oninput="handleSearch()" placeholder="Cari judul game atau mata pelajaran..." 
+                            class="w-full pl-11 pr-10 py-2.5 bg-pop-yellow/20 border-3 border-black rounded-xl focus:outline-none focus:bg-white text-sm font-extrabold text-black placeholder:text-slate-500 shadow-pop-sm">
+                        <button id="clear-search" onclick="clearSearch(event)" class="hidden absolute inset-y-0 right-0 pr-3.5 flex items-center text-black hover:text-pop-magenta">
+                            <i class="fa-solid fa-circle-xmark text-lg"></i>
+                        </button>
+                    </div>
+
+                    <!-- Category Pills -->
+                    <div class="flex flex-wrap items-center gap-2 w-full lg:w-auto overflow-x-auto pb-1 lg:pb-0" id="category-pills">
+                        <!-- Dynamic Buttons rendered via JS -->
+                    </div>
+                </div>
+
+                <!-- Active Filter Indicator & Counter -->
+                <div class="flex items-center justify-between text-xs font-extrabold text-black pt-2 border-t-3 border-black">
+                    <span id="result-status" class="bg-pop-cyan text-black px-2.5 py-0.5 rounded-lg border-2 border-black">Menampilkan semua game</span>
+                    
+                    <div class="flex items-center gap-3">
+                        <button onclick="resetFilters(event)" class="text-pop-magenta hover:text-black font-bangers text-base tracking-wider flex items-center gap-1 underline decoration-2">
+                            <i class="fa-solid fa-rotate-left"></i> RESET FILTER
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- GAME GRID SECTION -->
+        <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16 flex-grow w-full">
+            
+            <!-- Empty State Warning -->
+            <div id="no-results" class="hidden text-center py-16 bg-white rounded-3xl border-4 border-black p-8 my-6 shadow-pop-lg">
+                <div class="text-7xl mb-4 animate-bounce">💥</div>
+                <h3 class="font-bangers text-4xl text-pop-magenta mb-2">GAME TIDAK DITEMUKAN!</h3>
+                <p class="font-poppins font-bold text-slate-700 text-sm max-w-md mx-auto mb-6">Coba gunakan kata kunci pencarian lain atau pilih kategori yang berbeda!</p>
+                <button onclick="resetFilters(event)" class="pop-btn px-6 py-3 bg-pop-yellow text-black rounded-xl font-bangers text-xl shadow-pop">
+                    RESET FILTER GAME 🚀
+                </button>
+            </div>
+
+            <!-- Game Cards Grid -->
+            <div id="game-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+                <!-- Cards dynamically populated by JavaScript -->
+            </div>
+
+        </main>
+
+        <!-- FOOTER -->
+        <footer class="bg-pop-dark text-white py-8 border-t-4 border-black mt-auto relative z-10">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-3">
+                <div class="flex flex-wrap items-center justify-center gap-2 font-bangers text-2xl sm:text-3xl text-pop-yellow tracking-wider drop-shadow-[2px_2px_0px_#FF007A]">
+                    <i class="fa-solid fa-gamepad text-pop-cyan"></i> RUMAH GAME EDUKASI SD
+                </div>
+                
+                <!-- DEDICATED AUTHOR CREDITS -->
+                <div class="inline-block bg-pop-magenta text-white border-3 border-white px-4 py-2 rounded-2xl shadow-pop font-poppins text-xs font-black tracking-wide">
+                    🏆 KARYA: MUH. AKBAR S., S.Pd. — SDN 009 BALIKPAPAN BARAT
+                </div>
+
+                <p class="font-poppins text-xs font-bold text-slate-300 max-w-2xl mx-auto">
+                    Portal Media Pembelajaran Interaktif & Edukasi Berbasis Game untuk Siswa Sekolah Dasar.
+                </p>
+                <div class="font-mplus text-xs font-black text-pop-lime pt-2 border-t border-slate-800 uppercase">
+                    &copy; 2026 Muh. Akbar S., S.Pd. • SDN 009 Balikpapan Barat • All Rights Reserved ★
+                </div>
+            </div>
+        </footer>
+
+    </div>
+
+    <!-- ADD CUSTOM GAME MODAL -->
+    <div id="add-game-modal" class="fixed inset-0 bg-pop-dark/90 backdrop-blur-md z-50 hidden flex items-center justify-center p-4 overflow-y-auto">
+        <div class="bg-white border-4 border-black rounded-3xl max-w-lg w-full p-6 sm:p-8 shadow-pop-lg relative space-y-5 my-8">
+            
+            <button onclick="toggleAddGameModal(false, event)" class="pop-btn absolute top-4 right-4 w-10 h-10 rounded-xl bg-pop-magenta text-white font-black flex items-center justify-center">
+                <i class="fa-solid fa-xmark text-xl"></i>
+            </button>
+
+            <!-- Modal Title Header -->
+            <div class="flex items-center gap-3 border-b-4 border-black pb-4">
+                <div class="w-14 h-14 rounded-2xl bg-pop-yellow border-3 border-black text-black flex items-center justify-center text-3xl shadow-pop-sm">
+                    <i class="fa-solid fa-circle-plus"></i>
+                </div>
+                <div>
+                    <h3 class="font-bangers text-3xl text-pop-dark tracking-wider leading-none">TAMBAH GAME BARU</h3>
+                    <p class="font-poppins text-xs font-black text-pop-magenta uppercase">Rumah Game Edukasi SD</p>
+                </div>
+            </div>
+
+            <!-- Form Inputs -->
+            <form onsubmit="handleAddNewGame(event)" class="space-y-4 font-poppins text-xs font-bold text-black">
+                <div class="space-y-1">
+                    <label class="font-bangers text-base text-black block">JUDUL GAME:</label>
+                    <input type="text" id="new-game-title" placeholder="Contoh: Kuis Matematika Seru" required
+                        class="w-full px-4 py-2.5 border-3 border-black rounded-xl bg-pop-yellow/10 focus:outline-none focus:bg-white focus:border-pop-magenta shadow-pop-sm">
+                </div>
+
+                <div class="space-y-1">
+                    <label class="font-bangers text-base text-black block">KATEGORI MATA PELAJARAN:</label>
+                    <select id="new-game-category" required
+                        class="w-full px-4 py-2.5 border-3 border-black rounded-xl bg-pop-yellow/10 focus:outline-none focus:bg-white focus:border-pop-magenta shadow-pop-sm font-bold">
+                        <option value="Quiz & Arena">Quiz & Arena</option>
+                        <option value="Matematika">Matematika</option>
+                        <option value="Pancasila">Pancasila</option>
+                        <option value="IPAS">IPAS</option>
+                        <option value="Lainnya">Lainnya</option>
+                    </select>
+                </div>
+
+                <div class="space-y-1">
+                    <label class="font-bangers text-base text-black block">IKON EMOJI (OPSIONAL):</label>
+                    <input type="text" id="new-game-icon" placeholder="Contoh: 🎯 atau 🧩" 
+                        class="w-full px-4 py-2.5 border-3 border-black rounded-xl bg-pop-yellow/10 focus:outline-none focus:bg-white focus:border-pop-magenta shadow-pop-sm">
+                </div>
+
+                <div class="space-y-1">
+                    <label class="font-bangers text-base text-black block">LINK WEB GAME / WEB APP:</label>
+                    <input type="url" id="new-game-url" placeholder="https://script.google.com/..." required
+                        class="w-full px-4 py-2.5 border-3 border-black rounded-xl bg-pop-yellow/10 focus:outline-none focus:bg-white focus:border-pop-magenta shadow-pop-sm">
+                </div>
+
+                <div class="space-y-1">
+                    <label class="font-bangers text-base text-black block">DESKRIPSI RINGKAS:</label>
+                    <textarea id="new-game-desc" rows="2" placeholder="Deskripsi singkat cara bermain..."
+                        class="w-full px-4 py-2.5 border-3 border-black rounded-xl bg-pop-yellow/10 focus:outline-none focus:bg-white focus:border-pop-magenta shadow-pop-sm"></textarea>
+                </div>
+
+                <div class="pt-2 flex items-center justify-end gap-3">
+                    <button type="button" onclick="toggleAddGameModal(false, event)" class="pop-btn px-4 py-2.5 bg-slate-200 text-black font-bangers text-base rounded-xl">
+                        BATAL
+                    </button>
+                    <button type="submit" class="pop-btn px-6 py-2.5 bg-pop-lime text-black font-bangers text-xl rounded-xl shadow-pop flex items-center gap-2">
+                        <i class="fa-solid fa-check"></i> SIMPAN GAME
+                    </button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+
+    <!-- FULLSCREEN EMBEDDED PLAYER MODAL -->
+    <div id="player-modal" class="fixed inset-0 bg-pop-dark/95 backdrop-blur-md z-50 hidden flex-col transition-all duration-300">
+        
+        <!-- Player Top Bar Control -->
+        <div class="bg-white border-b-4 border-black px-4 py-3 flex items-center justify-between text-black shrink-0 shadow-pop z-30">
+            
+            <div class="flex items-center gap-3 overflow-hidden">
+                <span id="player-icon" class="text-3xl p-2 bg-pop-yellow border-3 border-black rounded-xl shadow-pop-sm">🎮</span>
+                <div class="truncate">
+                    <h3 id="player-title" class="font-bangers text-2xl sm:text-3xl text-pop-magenta tracking-wider truncate drop-shadow-[1px_1px_0px_#000]">Judul Game</h3>
+                    <p id="player-category" class="font-poppins text-xs font-black text-slate-700 truncate uppercase">Kategori</p>
+                </div>
+            </div>
+
+            <!-- Player Action Controls -->
+            <div class="flex items-center gap-2 shrink-0">
+                
+                <button onclick="reloadGameIframe(event)" class="pop-btn px-3 py-2 bg-pop-cyan text-black rounded-xl font-bangers text-sm flex items-center gap-1.5 shadow-pop-sm" title="Muat Ulang Game">
+                    <i class="fa-solid fa-rotate-right"></i>
+                    <span class="hidden sm:inline">RELOAD</span>
+                </button>
+
+                <button onclick="toggleIframeFullscreen(event)" class="pop-btn px-3 py-2 bg-pop-lime text-black rounded-xl font-bangers text-sm flex items-center gap-1.5 shadow-pop-sm" title="Layar Penuh">
+                    <i class="fa-solid fa-expand"></i>
+                    <span class="hidden sm:inline">FULLSCREEN</span>
+                </button>
+
+                <button id="player-open-tab-btn" onclick="openCurrentInNewTab(event)" class="pop-btn px-3 py-2 bg-pop-yellow text-black rounded-xl font-bangers text-sm flex items-center gap-1.5 shadow-pop-sm" title="Buka Tab Baru">
+                    <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                    <span class="hidden md:inline">TAB BARU</span>
+                </button>
+
+                <button onclick="closeGameModal(event)" class="pop-btn px-3.5 py-2 bg-pop-magenta text-white rounded-xl font-bangers text-sm flex items-center gap-1.5 shadow-pop-sm ml-1" title="Tutup Game">
+                    <i class="fa-solid fa-xmark text-lg"></i>
+                    <span class="hidden sm:inline">KELUAR</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Embedded Game Notice Banner -->
+        <div class="bg-pop-yellow border-b-3 border-black text-black font-extrabold text-xs px-4 py-2 flex items-center justify-between gap-2">
+            <div class="flex items-center gap-2 truncate">
+                <i class="fa-solid fa-lightbulb text-pop-magenta text-base"></i>
+                <span class="truncate">Petunjuk Pak Guru Muh. Akbar S.: Jika tampilan game butuh login Belajar.id, tekan tombol <strong>"TAB BARU"</strong>!</span>
+            </div>
+            <button onclick="this.parentElement.remove()" class="text-black font-black hover:text-pop-magenta px-2">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+
+        <!-- Iframe Container -->
+        <div id="iframe-wrapper" class="flex-grow w-full h-full relative bg-slate-900 flex items-center justify-center">
+            
+            <div id="iframe-loader" class="absolute inset-0 flex flex-col items-center justify-center bg-pop-dark text-white z-10 gap-3">
+                <div class="w-16 h-16 border-6 border-pop-yellow border-t-pop-magenta rounded-full animate-spin"></div>
+                <p class="font-bangers text-2xl text-pop-cyan tracking-wider animate-pulse">MEMUAT GAME EDUKASI...</p>
+                <p class="font-poppins text-xs font-bold text-slate-400">Rumah Game Edukasi SD — SDN 009 Balikpapan Barat</p>
+            </div>
+
+            <iframe id="game-iframe" class="w-full h-full border-0 relative z-20" allowfullscreen allow="autoplay; microphone; camera; geolocation"></iframe>
+        </div>
+    </div>
+
+    <!-- INFORMATION / HELP MODAL -->
+    <div id="info-modal" class="fixed inset-0 bg-pop-dark/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white border-4 border-black rounded-3xl max-w-lg w-full p-6 sm:p-8 shadow-pop-lg relative space-y-5">
+            
+            <button onclick="toggleInfoModal(false, event)" class="pop-btn absolute top-4 right-4 w-9 h-9 rounded-xl bg-pop-magenta text-white font-black flex items-center justify-center">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+
+            <div class="flex items-center gap-3 border-b-4 border-black pb-4">
+                <div class="w-14 h-14 rounded-2xl bg-pop-yellow border-3 border-black text-black flex items-center justify-center text-3xl shadow-pop-sm">
+                    <i class="fa-solid fa-circle-info"></i>
+                </div>
+                <div>
+                    <h3 class="font-bangers text-3xl text-pop-dark tracking-wider">RUMAH GAME EDUKASI SD</h3>
+                    <p class="font-poppins text-xs font-black text-pop-magenta uppercase">Karya: Muh. Akbar S., S.Pd. • SDN 009 Balikpapan Barat</p>
+                </div>
+            </div>
+
+            <div class="space-y-3 font-poppins text-sm font-bold text-black">
+                <div class="flex items-start gap-3 p-3 bg-pop-yellow/30 rounded-2xl border-3 border-black">
+                    <span class="text-2xl">🎯</span>
+                    <div>
+                        <strong class="font-bangers text-lg text-pop-dark tracking-wide block">1. MAIN LANGSUNG</strong>
+                        Pilih game kesukaanmu lalu klik tombol <span class="bg-pop-lime px-1.5 py-0.5 border border-black rounded text-xs">MAIN SEKARANG!</span> untuk memutar game.
+                    </div>
+                </div>
+
+                <div class="flex items-start gap-3 p-3 bg-pop-cyan/30 rounded-2xl border-3 border-black">
+                    <span class="text-2xl">❤️</span>
+                    <div>
+                        <strong class="font-bangers text-lg text-pop-dark tracking-wide block">2. SIMPAN FAVORIT</strong>
+                        Tandai game favoritmu dengan menekan ikon hati agar dapat diakses dengan cepat kapan saja.
+                    </div>
+                </div>
+
+                <div class="flex items-start gap-3 p-3 bg-pop-magenta/20 rounded-2xl border-3 border-black">
+                    <span class="text-2xl">💡</span>
+                    <div>
+                        <strong class="font-bangers text-lg text-pop-dark tracking-wide block">3. JIKA LAYAR BLANK</strong>
+                        Tekan tombol <span class="bg-pop-yellow px-1.5 py-0.5 border border-black rounded text-xs">TAB BARU</span> di atas game jika memerlukan verifikasi akun Belajar.id.
+                    </div>
+                </div>
+            </div>
+
+            <button onclick="toggleInfoModal(false, event)" class="pop-btn w-full py-3 bg-pop-lime text-black rounded-2xl font-bangers text-2xl tracking-wider shadow-pop">
+                SIAP BERMAIN! 🚀
+            </button>
+        </div>
+    </div>
+
+    <!-- TOAST CONTAINER -->
+    <div id="toast-container" class="fixed bottom-5 right-5 z-50 flex flex-col gap-2 pointer-events-none"></div>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        // BACKGROUND ENDPOINTS (SILENT SYNC)
+        const TARGET_SHEET_ID = '1WFI6ItRvMssL9Nm3xeLGrzl7xUvpw8dILECNi2iAF5I';
+        const TARGET_SHEET_GID = '1975015748';
+        const SILENT_SHEET_URL = `https://docs.google.com/spreadsheets/d/${TARGET_SHEET_ID}/gviz/tq?tqx=out:csv&gid=${TARGET_SHEET_GID}`;
+        const SILENT_FALLBACK_URL = `https://docs.google.com/spreadsheets/d/${TARGET_SHEET_ID}/export?format=csv&gid=${TARGET_SHEET_GID}`;
+
+        // DEFAULT 9 GAMES BY MUH. AKBAR S., S.Pd. (SDN 009 BALIKPAPAN BARAT)
+        const DEFAULT_GAMES = [
+            {
+                id: 'quiz-vs',
+                title: 'Quiz VS Duel',
+                category: 'Quiz & Arena',
+                icon: '⚔️',
+                bgColor: 'bg-pop-magenta',
+                badgeText: '1v1 VS',
+                badgeBg: 'bg-pop-yellow text-black',
+                description: 'Adu cerdas 1 lawan 1 bersama teman kelasmu! Jawab cepat dan raih skor tertinggi!',
+                url: 'https://script.google.com/a/macros/guru.sd.belajar.id/s/AKfycbzv9MT-1Zq2imucR5ZPSGI75ztpdjIr5cU3Hl-17lY014ItAm6khx6dd_7KAimbZevA/exec'
+            },
+            {
+                id: 'quiz-battle-royal',
+                title: 'Quiz Battle Royal',
+                category: 'Quiz & Arena',
+                icon: '👑',
+                bgColor: 'bg-pop-purple',
+                badgeText: 'BATTLE',
+                badgeBg: 'bg-pop-lime text-black',
+                description: 'Pertarungan kuis massal! Siapa yang akan bertahan paling akhir jadi sang Juara?',
+                url: 'https://script.google.com/a/macros/guru.sd.belajar.id/s/AKfycbyPOI0Uz82EWahxw1N0hXvd2u3V2_0GC2W_pG2niLTAaUKq_gFPuMRmn9l33Qbl2u0onQ/exec'
+            },
+            {
+                id: 'simulasi-pembagian',
+                title: 'Simulasi Pembagian',
+                category: 'Matematika',
+                icon: '➗',
+                bgColor: 'bg-pop-cyan',
+                badgeText: 'MATH SIM',
+                badgeBg: 'bg-pop-yellow text-black',
+                description: 'Visualisasi interaktif pembagian matematika dasar SD dengan cara yang gampang dipahami.',
+                url: 'https://script.google.com/a/macros/guru.sd.belajar.id/s/AKfycbwbtgTCtmHgsBfI3kAKjfZ0YXtZ-Xl8WyLyyqwd5ZxysiOmHqj3uYch7rXqJEaysWiB/exec'
+            },
+            {
+                id: 'simulasi-perkalian',
+                title: 'Simulasi Perkalian',
+                category: 'Matematika',
+                icon: '✖️',
+                bgColor: 'bg-pop-yellow',
+                badgeText: 'MATH SIM',
+                badgeBg: 'bg-pop-magenta text-white',
+                description: 'Pelajari konsep perkalian matematika lewat simulasi grafis berwarna yang seru!',
+                url: 'https://script.google.com/a/macros/guru.sd.belajar.id/s/AKfycbzqoXs0zkNzKQY-5oB-azZeCoegQeNIfLNyhgwFLgfhstOTYtahhh_IRsOSCWXV0rF/exec'
+            },
+            {
+                id: 'math-matrix-pembagian',
+                title: 'Math Matrix Pembagian',
+                category: 'Matematika',
+                icon: '🔢',
+                bgColor: 'bg-pop-lime',
+                badgeText: 'MATRIX',
+                badgeBg: 'bg-pop-dark text-white',
+                description: 'Tantangan teka-teki kotak matriks pembagian angka untuk melatih logika matematika.',
+                url: 'https://script.google.com/a/macros/guru.sd.belajar.id/s/AKfycbwp7SkVBfZiUCMemXPCAlFF_K0V4YN8bOREvV2IC9rwPWrUZgdD3SiHkiCA5tM9BRB4/exec'
+            },
+            {
+                id: 'math-matrix-perkalian',
+                title: 'Math Matrix Perkalian',
+                category: 'Matematika',
+                icon: '🧮',
+                bgColor: 'bg-pop-orange',
+                badgeText: 'MATRIX',
+                badgeBg: 'bg-pop-yellow text-black',
+                description: 'Pecahkan teka-teki matriks perkalian kilat dengan kecepatan dan ketepatan jawaban!',
+                url: 'https://script.google.com/a/macros/guru.sd.belajar.id/s/AKfycbysQW6tMleBNs557b0dQnDEZ4mwQIi6RXm6XWKFYsdhBD4W5GHhYGwp9FRzUXVpI6Jvxg/exec'
+            },
+            {
+                id: 'quiz-pancasila',
+                title: 'Benar / Salah Pancasila',
+                category: 'Pancasila',
+                icon: '🦅',
+                bgColor: 'bg-pop-magenta',
+                badgeText: 'TRUE / FALSE',
+                badgeBg: 'bg-pop-yellow text-black',
+                description: 'Uji wawasan sila-sila Pancasila dan Pendidikan Kewarganegaraan dengan kuis Cepat Tepat!',
+                url: 'https://script.google.com/a/macros/guru.sd.belajar.id/s/AKfycby0tNuBaTEzfDH9JZVju45c3_TDkOLsg2yyAHUcvscIYba9H8w5ykDljFvZek7p50vT/exec'
+            },
+            {
+                id: 'ular-tangga-pancasila',
+                title: 'Ular Tangga Pancasila',
+                category: 'Pancasila',
+                icon: '🎲',
+                bgColor: 'bg-pop-yellow',
+                badgeText: 'BOARD GAME',
+                badgeBg: 'bg-pop-cyan text-black',
+                description: 'Main ular tangga interaktif sambil belajar mengamalkan nilai Pancasila sehari-hari.',
+                url: 'https://script.google.com/a/macros/guru.sd.belajar.id/s/AKfycbwQDHJSGyxZXrtVrkS2DYGvuYH1OHzbva6pfQpd5neC-CBzZOsF3Fp7nnU7ZxHTPYXo/exec'
+            },
+            {
+                id: 'ular-tangga-ipas',
+                title: 'Ular Tangga IPAS',
+                category: 'IPAS',
+                icon: '🌱',
+                bgColor: 'bg-pop-purple',
+                badgeText: 'BOARD GAME',
+                badgeBg: 'bg-pop-lime text-black',
+                description: 'Petualangan ular tangga seru menjelajahi materi Ilmu Pengetahuan Alam & Sosial SD!',
+                url: 'https://script.google.com/a/macros/guru.sd.belajar.id/s/AKfycbzQP0s68oGXdjCTKxjkRZLGJL6FFZRl7cdMgwA_8EbspNBP2vkJlTjMx1P4dTcobq5ewQ/exec'
+            }
+        ];
+
+        // DYNAMIC COLOR PALETTES FOR GENERATED CARDS
+        const POP_COLORS = ['bg-pop-magenta', 'bg-pop-cyan', 'bg-pop-yellow', 'bg-pop-lime', 'bg-pop-purple', 'bg-pop-orange'];
+
+        // STATE VARIABLES
+        let gamesList = [...DEFAULT_GAMES];
+        let categoriesList = ['Semua Game', 'Quiz & Arena', 'Matematika', 'Pancasila', 'IPAS'];
+        let activeCategory = 'Semua Game';
+        let searchQuery = '';
+        let favorites = [];
+        let currentGameUrl = '';
+        let audioEnabled = true;
+        let audioCtx = null;
+
+        const COMIC_WORDS = ['POW!', 'BAM!', 'SUGOI!', 'AKBAR S.', 'GREAT!', 'EXCELLENT!'];
+
+        function spawnPopParticle(e) {
+            if (e.target.tagName === 'INPUT' || e.target.tagName === 'SELECT' || e.target.tagName === 'TEXTAREA' || e.target.tagName === 'IFRAME') return;
+
+            const particle = document.createElement('div');
+            particle.className = 'click-particle';
+            particle.innerText = COMIC_WORDS[Math.floor(Math.random() * COMIC_WORDS.length)];
+            particle.style.left = e.clientX + 'px';
+            particle.style.top = e.clientY + 'px';
+            document.body.appendChild(particle);
+
+            setTimeout(() => {
+                particle.remove();
+            }, 750);
+        }
+
+        // AUDIO SYNTHESIZER
+        function playSound(type) {
+            if (!audioEnabled) return;
+            try {
+                if (!audioCtx) {
+                    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                }
+                if (audioCtx.state === 'suspended') {
+                    audioCtx.resume();
+                }
+
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+
+                const now = audioCtx.currentTime;
+
+                if (type === 'click') {
+                    osc.type = 'square';
+                    osc.frequency.setValueAtTime(300, now);
+                    osc.frequency.exponentialRampToValueAtTime(800, now + 0.08);
+                    gain.gain.setValueAtTime(0.12, now);
+                    gain.gain.linearRampToValueAtTime(0, now + 0.08);
+                    osc.start(now);
+                    osc.stop(now + 0.08);
+                } else if (type === 'fav') {
+                    osc.type = 'triangle';
+                    osc.frequency.setValueAtTime(523.25, now);
+                    osc.frequency.setValueAtTime(659.25, now + 0.08);
+                    osc.frequency.setValueAtTime(783.99, now + 0.16);
+                    gain.gain.setValueAtTime(0.18, now);
+                    gain.gain.linearRampToValueAtTime(0, now + 0.25);
+                    osc.start(now);
+                    osc.stop(now + 0.25);
+                } else if (type === 'laser') {
+                    osc.type = 'sawtooth';
+                    osc.frequency.setValueAtTime(900, now);
+                    osc.frequency.exponentialRampToValueAtTime(150, now + 0.2);
+                    gain.gain.setValueAtTime(0.2, now);
+                    gain.gain.linearRampToValueAtTime(0, now + 0.2);
+                    osc.start(now);
+                    osc.stop(now + 0.2);
+                } else if (type === 'success') {
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(440, now);
+                    osc.frequency.setValueAtTime(554.37, now + 0.1);
+                    osc.frequency.setValueAtTime(659.25, now + 0.2);
+                    osc.frequency.setValueAtTime(880, now + 0.3);
+                    gain.gain.setValueAtTime(0.2, now);
+                    gain.gain.linearRampToValueAtTime(0, now + 0.4);
+                    osc.start(now);
+                    osc.stop(now + 0.4);
+                }
+            } catch (err) {
+                console.log('Audio Context notice:', err);
+            }
+        }
+
+        // INITIALIZATION LOGIC
+        window.addEventListener('DOMContentLoaded', async () => {
+            loadFavorites();
+            loadStoredGames();
+            renderCategoryPills();
+            renderGameGrid();
+            updateFavBadge();
+
+            // Silent background sync
+            silentBackgroundSync();
+
+            const iframe = document.getElementById('game-iframe');
+            iframe.addEventListener('load', () => {
+                document.getElementById('iframe-loader').classList.add('hidden');
+            });
+        });
+
+        // STORAGE MANAGEMENT FOR GAMES & FAVORITES
+        function loadStoredGames() {
+            try {
+                const stored = localStorage.getItem('rumah_game_edukasi_list');
+                if (stored) {
+                    gamesList = JSON.parse(stored);
+                } else {
+                    gamesList = [...DEFAULT_GAMES];
+                }
+            } catch (e) {
+                gamesList = [...DEFAULT_GAMES];
+            }
+            updateCategoryList();
+        }
+
+        function saveStoredGames() {
+            try {
+                localStorage.setItem('rumah_game_edukasi_list', JSON.stringify(gamesList));
+            } catch (e) {
+                console.error(e);
+            }
+            updateCategoryList();
+            renderCategoryPills();
+            renderGameGrid();
+        }
+
+        function updateCategoryList() {
+            const catSet = new Set(['Semua Game', 'Quiz & Arena', 'Matematika', 'Pancasila', 'IPAS']);
+            gamesList.forEach(g => {
+                if (g.category) catSet.add(g.category);
+            });
+            categoriesList = Array.from(catSet);
+        }
+
+        function loadFavorites() {
+            try {
+                const stored = localStorage.getItem('rumah_game_edukasi_favs');
+                if (stored) favorites = JSON.parse(stored);
+            } catch (e) {
+                favorites = [];
+            }
+        }
+
+        function saveFavorites() {
+            try {
+                localStorage.setItem('rumah_game_edukasi_favs', JSON.stringify(favorites));
+            } catch (e) {
+                console.error(e);
+            }
+            updateFavBadge();
+        }
+
+        function toggleFavorite(id, event) {
+            if (event) event.stopPropagation();
+            const index = favorites.indexOf(id);
+            if (index > -1) {
+                favorites.splice(index, 1);
+                showToast('Dihapus dari favorit! 💔', 'info');
+            } else {
+                favorites.push(id);
+                playSound('fav');
+                showToast('Ditambahkan ke favorit! ❤️ SUGOI!', 'success');
+            }
+            saveFavorites();
+            renderGameGrid();
+        }
+
+        function updateFavBadge() {
+            const badge = document.getElementById('fav-count-badge');
+            if (badge) badge.textContent = favorites.length;
+        }
+
+        // SILENT BACKGROUND SYNC LOGIC
+        async function silentBackgroundSync() {
+            const urlsToTry = [SILENT_SHEET_URL, SILENT_FALLBACK_URL];
+            let csvText = null;
+
+            for (const url of urlsToTry) {
+                try {
+                    const response = await fetch(url);
+                    if (response.ok) {
+                        const text = await response.text();
+                        if (text && text.length > 10 && !text.includes('<!DOCTYPE html>')) {
+                            csvText = text;
+                            break;
+                        }
+                    }
+                } catch (err) {
+                    // Silent fail
+                }
+            }
+
+            if (csvText) {
+                const parsedGames = parseCSVToGames(csvText);
+                if (parsedGames.length > 0) {
+                    const map = new Map();
+                    DEFAULT_GAMES.forEach(g => map.set(g.url, g));
+                    
+                    // Retain manually added local custom games
+                    gamesList.forEach(g => {
+                        if (g.id.startsWith('custom-local-')) {
+                            map.set(g.url, g);
+                        }
+                    });
+
+                    parsedGames.forEach(g => map.set(g.url, g));
+
+                    gamesList = Array.from(map.values());
+                    saveStoredGames();
+                }
+            }
+        }
+
+        // CSV PARSER
+        function parseCSVToGames(csvText) {
+            const lines = csvText.split(/\r\n|\n/);
+            if (lines.length < 2) return [];
+
+            const headers = parseCSVRow(lines[0]).map(h => h.trim().toLowerCase().replace(/^["']|["']$/g, ''));
+            
+            const idxJudul = headers.findIndex(h => h.includes('judul') || h.includes('title') || h.includes('nama'));
+            const idxKategori = headers.findIndex(h => h.includes('kategori') || h.includes('category'));
+            const idxDeskripsi = headers.findIndex(h => h.includes('deskripsi') || h.includes('desc'));
+            const idxLink = headers.findIndex(h => h.includes('link') || h.includes('url') || h.includes('script'));
+            const idxIcon = headers.findIndex(h => h.includes('icon') || h.includes('emoji') || h.includes('ikon'));
+
+            const result = [];
+
+            for (let i = 1; i < lines.length; i++) {
+                if (!lines[i].trim()) continue;
+                const row = parseCSVRow(lines[i]).map(c => c.trim().replace(/^["']|["']$/g, ''));
+                
+                const title = idxJudul !== -1 && row[idxJudul] ? row[idxJudul] : 'Game Edukasi Baru';
+                const category = idxKategori !== -1 && row[idxKategori] ? row[idxKategori] : 'Lainnya';
+                const description = idxDeskripsi !== -1 && row[idxDeskripsi] ? row[idxDeskripsi] : 'Game Pembelajaran Interaktif SD karya Muh. Akbar S., S.Pd.';
+                const url = idxLink !== -1 && row[idxLink] ? row[idxLink] : '';
+                const icon = idxIcon !== -1 && row[idxIcon] ? row[idxIcon] : '🎮';
+
+                if (url && (url.startsWith('http://') || url.startsWith('https://'))) {
+                    result.push({
+                        id: 'sync-' + Date.now() + '-' + Math.random().toString(36).substr(2, 5),
+                        title: title,
+                        category: category,
+                        icon: icon || '🎮',
+                        bgColor: POP_COLORS[Math.floor(Math.random() * POP_COLORS.length)],
+                        badgeText: 'INTERAKTIF',
+                        badgeBg: 'bg-pop-lime text-black',
+                        description: description,
+                        url: url
+                    });
+                }
+            }
+            return result;
+        }
+
+        function parseCSVRow(rowStr) {
+            const row = [];
+            let insideQuote = false;
+            let entry = '';
+
+            for (let i = 0; i < rowStr.length; i++) {
+                const char = rowStr[i];
+                if (char === '"') {
+                    insideQuote = !insideQuote;
+                } else if (char === ',' && !insideQuote) {
+                    row.push(entry);
+                    entry = '';
+                } else {
+                    entry += char;
+                }
+            }
+            row.push(entry);
+            return row;
+        }
+
+        // ADD CUSTOM GAME MODAL HANDLERS
+        function toggleAddGameModal(show, event) {
+            if (event) event.stopPropagation();
+            playSound('click');
+            const modal = document.getElementById('add-game-modal');
+            if (show) {
+                modal.classList.remove('hidden');
+                modal.classList.add('flex');
+            } else {
+                modal.classList.add('hidden');
+                modal.classList.remove('flex');
+            }
+        }
+
+        function handleAddNewGame(e) {
+            e.preventDefault();
+            playSound('success');
+
+            const title = document.getElementById('new-game-title').value.trim();
+            const category = document.getElementById('new-game-category').value;
+            const icon = document.getElementById('new-game-icon').value.trim() || '🎮';
+            const url = document.getElementById('new-game-url').value.trim();
+            const desc = document.getElementById('new-game-desc').value.trim() || 'Game Pembelajaran Interaktif SD.';
+
+            if (!url) return;
+
+            const newGame = {
+                id: 'custom-local-' + Date.now(),
+                title: title,
+                category: category,
+                icon: icon,
+                bgColor: POP_COLORS[Math.floor(Math.random() * POP_COLORS.length)],
+                badgeText: 'BARU',
+                badgeBg: 'bg-pop-yellow text-black',
+                description: desc,
+                url: url
+            };
+
+            gamesList.unshift(newGame);
+            saveStoredGames();
+            showToast('Game baru berhasil ditambahkan! 🚀', 'success');
+
+            // Reset form & close
+            e.target.reset();
+            toggleAddGameModal(false);
+        }
+
+        // CATEGORY & SEARCH RENDER LOGIC
+        function renderCategoryPills() {
+            const container = document.getElementById('category-pills');
+            container.innerHTML = categoriesList.map(cat => {
+                const isActive = activeCategory === cat;
+                return `
+                    <button onclick="selectCategory('${cat}', event)" 
+                        class="pop-btn px-4 py-2 rounded-xl text-xs font-bangers tracking-wider text-base transition-all flex items-center gap-2 whitespace-nowrap ${
+                            isActive 
+                            ? 'bg-pop-magenta text-white shadow-pop-sm translate-x-[-2px] translate-y-[-2px]' 
+                            : 'bg-white text-black hover:bg-pop-yellow'
+                        }">
+                        <span>${cat.toUpperCase()}</span>
+                    </button>
+                `;
+            }).join('');
+        }
+
+        function selectCategory(catName, event) {
+            if (event) event.stopPropagation();
+            playSound('click');
+            activeCategory = catName;
+            renderCategoryPills();
+            renderGameGrid();
+        }
+
+        function handleSearch() {
+            const input = document.getElementById('search-input');
+            searchQuery = input.value.trim().toLowerCase();
+            const clearBtn = document.getElementById('clear-search');
+            
+            if (searchQuery.length > 0) {
+                clearBtn.classList.remove('hidden');
+            } else {
+                clearBtn.classList.add('hidden');
+            }
+            renderGameGrid();
+        }
+
+        function clearSearch(event) {
+            if (event) event.stopPropagation();
+            const input = document.getElementById('search-input');
+            input.value = '';
+            searchQuery = '';
+            document.getElementById('clear-search').classList.add('hidden');
+            renderGameGrid();
+        }
+
+        function filterFavorites(event) {
+            if (event) event.stopPropagation();
+            playSound('click');
+            activeCategory = 'FAVORITES_ONLY';
+            renderCategoryPills();
+            renderGameGrid();
+        }
+
+        function resetFilters(event) {
+            if (event) event.stopPropagation();
+            playSound('click');
+            activeCategory = 'Semua Game';
+            clearSearch();
+            renderCategoryPills();
+            renderGameGrid();
+        }
+
+        // RENDER GAMES GRID
+        function renderGameGrid() {
+            const grid = document.getElementById('game-grid');
+            const noResults = document.getElementById('no-results');
+            const statusText = document.getElementById('result-status');
+
+            let filtered = gamesList.filter(game => {
+                let matchesCategory = true;
+                if (activeCategory === 'FAVORITES_ONLY') {
+                    matchesCategory = favorites.includes(game.id);
+                } else if (activeCategory !== 'Semua Game') {
+                    matchesCategory = game.category === activeCategory;
+                }
+
+                let matchesSearch = true;
+                if (searchQuery) {
+                    matchesSearch = game.title.toLowerCase().includes(searchQuery) ||
+                                    game.category.toLowerCase().includes(searchQuery) ||
+                                    game.description.toLowerCase().includes(searchQuery);
+                }
+
+                return matchesCategory && matchesSearch;
+            });
+
+            if (activeCategory === 'FAVORITES_ONLY') {
+                statusText.textContent = `Menampilkan ${filtered.length} game favorit`;
+            } else if (activeCategory !== 'Semua Game') {
+                statusText.textContent = `Kategori "${activeCategory}": ${filtered.length} game`;
+            } else if (searchQuery) {
+                statusText.textContent = `Pencarian "${searchQuery}": ${filtered.length} game`;
+            } else {
+                statusText.textContent = `Menampilkan ${filtered.length} game`;
+            }
+
+            if (filtered.length === 0) {
+                grid.classList.add('hidden');
+                noResults.classList.remove('hidden');
+                return;
+            }
+
+            grid.classList.remove('hidden');
+            noResults.classList.add('hidden');
+
+            grid.innerHTML = filtered.map(game => {
+                const isFav = favorites.includes(game.id);
+                return `
+                    <div class="pop-card bg-white rounded-3xl overflow-hidden shadow-pop flex flex-col justify-between relative group">
+                        
+                        <!-- Top Card Header -->
+                        <div class="h-32 ${game.bgColor || 'bg-pop-magenta'} p-4 relative flex items-center justify-between border-b-4 border-black overflow-hidden speedlines">
+                            
+                            <div class="w-16 h-16 rounded-2xl bg-white border-3 border-black flex items-center justify-center text-4xl shadow-pop-sm transform group-hover:scale-110 group-hover:rotate-6 transition-transform">
+                                ${game.icon || '🎮'}
+                            </div>
+
+                            <div class="flex flex-col items-end gap-2">
+                                <span class="font-bangers text-xs border-2 border-black px-2.5 py-0.5 rounded-lg ${game.badgeBg || 'bg-pop-yellow text-black'} shadow-pop-sm uppercase">
+                                    ${game.badgeText || 'GAME'}
+                                </span>
+
+                                <button onclick="toggleFavorite('${game.id}', event)" 
+                                    class="pop-btn w-9 h-9 rounded-xl bg-white text-black flex items-center justify-center transition-all shadow-pop-sm ${isFav ? '!bg-pop-magenta !text-white' : ''}"
+                                    title="${isFav ? 'Hapus dari Favorit' : 'Tambah ke Favorit'}">
+                                    <i class="fa-${isFav ? 'solid' : 'regular'} fa-heart text-lg"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Card Body -->
+                        <div class="p-5 flex-grow flex flex-col justify-between space-y-4">
+                            <div>
+                                <div class="flex items-center justify-between gap-2 mb-2">
+                                    <span class="font-mplus text-[10px] font-black uppercase tracking-wider px-2 py-0.5 rounded-md bg-black text-white">
+                                        ${game.category}
+                                    </span>
+                                    <span class="font-bangers text-xs text-pop-dark flex items-center gap-1">
+                                        <i class="fa-solid fa-bolt text-pop-yellow text-sm"></i> READY
+                                    </span>
+                                </div>
+                                <h3 class="font-bangers text-3xl text-pop-dark leading-none tracking-wide group-hover:text-pop-magenta transition-colors">
+                                    ${game.title}
+                                </h3>
+                                <p class="font-poppins text-xs font-bold text-slate-700 mt-2 line-clamp-2">
+                                    ${game.description}
+                                </p>
+                            </div>
+
+                            <button onclick="openGameModal('${game.id}', event)" 
+                                class="pop-btn w-full py-3 bg-pop-yellow hover:bg-pop-lime text-black rounded-2xl font-bangers text-2xl tracking-wider shadow-pop flex items-center justify-center gap-2">
+                                <i class="fa-solid fa-gamepad text-2xl"></i>
+                                <span>MAIN SEKARANG! 🚀</span>
+                            </button>
+                        </div>
+
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // PLAYER MODAL CONTROLS
+        function openGameModal(id, event) {
+            if (event) event.stopPropagation();
+            playSound('laser');
+            const game = gamesList.find(g => g.id === id);
+            if (!game) return;
+
+            currentGameUrl = game.url;
+
+            document.getElementById('player-title').textContent = game.title;
+            document.getElementById('player-category').textContent = `Kategori: ${game.category}`;
+            document.getElementById('player-icon').textContent = game.icon || '🎮';
+
+            const loader = document.getElementById('iframe-loader');
+            loader.classList.remove('hidden');
+
+            const iframe = document.getElementById('game-iframe');
+            iframe.src = game.url;
+
+            const modal = document.getElementById('player-modal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeGameModal(event) {
+            if (event) event.stopPropagation();
+            playSound('click');
+            const modal = document.getElementById('player-modal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+
+            const iframe = document.getElementById('game-iframe');
+            iframe.src = 'about:blank';
+            document.body.style.overflow = 'auto';
+        }
+
+        function reloadGameIframe(event) {
+            if (event) event.stopPropagation();
+            playSound('click');
+            const loader = document.getElementById('iframe-loader');
+            loader.classList.remove('hidden');
+
+            const iframe = document.getElementById('game-iframe');
+            iframe.src = currentGameUrl;
+            showToast('Memuat ulang game...', 'info');
+        }
+
+        function openCurrentInNewTab(event) {
+            if (event) event.stopPropagation();
+            playSound('click');
+            if (currentGameUrl) {
+                window.open(currentGameUrl, '_blank');
+            }
+        }
+
+        function toggleIframeFullscreen(event) {
+            if (event) event.stopPropagation();
+            playSound('click');
+            const container = document.getElementById('iframe-wrapper');
+            if (!document.fullscreenElement) {
+                if (container.requestFullscreen) {
+                    container.requestFullscreen();
+                } else if (container.webkitRequestFullscreen) {
+                    container.webkitRequestFullscreen();
+                }
+            } else {
+                if (document.exitFullscreen) {
+                    document.exitFullscreen();
+                }
+            }
+        }
+
+        function toggleInfoModal(show, event) {
+            if (event) event.stopPropagation();
+            playSound('click');
+            const modal = document.getElementById('info-modal');
+            if (show) {
+                modal.classList.remove('hidden');
+                modal.classList.add('flex');
+            } else {
+                modal.classList.add('hidden');
+                modal.classList.remove('flex');
+            }
+        }
+
+        function toggleAudio(event) {
+            if (event) event.stopPropagation();
+            audioEnabled = !audioEnabled;
+            const icon = document.getElementById('sound-icon');
+            const text = document.getElementById('sound-text');
+            const btn = document.getElementById('sound-toggle');
+
+            if (audioEnabled) {
+                icon.className = 'fa-solid fa-volume-high text-base';
+                text.textContent = 'SFX ON';
+                btn.className = 'pop-btn bg-pop-cyan text-black px-3 py-1.5 rounded-xl font-extrabold text-xs sm:text-sm flex items-center gap-2 shadow-pop-sm';
+                playSound('click');
+                showToast('Suara Efek Arcade: AKTIF 🔊', 'info');
+            } else {
+                icon.className = 'fa-solid fa-volume-xmark text-base text-pop-magenta';
+                text.textContent = 'SFX MUTE';
+                btn.className = 'pop-btn bg-white text-black px-3 py-1.5 rounded-xl font-extrabold text-xs sm:text-sm flex items-center gap-2 shadow-pop-sm';
+                showToast('Suara Efek Arcade: MUTE 🔇', 'info');
+            }
+        }
+
+        function showToast(message, type = 'info') {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            
+            let bg = 'bg-pop-dark text-white border-2 border-black shadow-pop';
+            if (type === 'success') bg = 'bg-pop-lime text-black border-2 border-black shadow-pop font-black';
+            if (type === 'info') bg = 'bg-pop-yellow text-black border-2 border-black shadow-pop font-black';
+
+            toast.className = `${bg} px-4 py-2.5 rounded-xl font-bangers text-lg tracking-wide flex items-center gap-2 transform transition-all duration-300 translate-y-5 opacity-0 pointer-events-auto`;
+            toast.innerHTML = `<span>${message}</span>`;
+
+            container.appendChild(toast);
+
+            requestAnimationFrame(() => {
+                toast.classList.remove('translate-y-5', 'opacity-0');
+            });
+
+            setTimeout(() => {
+                toast.classList.add('translate-y-5', 'opacity-0');
+                setTimeout(() => {
+                    toast.remove();
+                }, 300);
+            }, 2300);
+        }
+    </script>
+</body>
+</html>
