@@ -22,6 +22,12 @@
                         mplus: ['"M PLUS Rounded 1c"', 'sans-serif'],
                         poppins: ['Poppins', 'sans-serif'],
                     },
+                    borderWidth: {
+                        '3': '3px',
+                    },
+                    spacing: {
+                        '13': '3.25rem',
+                    },
                     colors: {
                         pop: {
                             yellow: '#FFE600',
@@ -117,7 +123,7 @@
             }
             100% {
                 opacity: 0;
-                transform: translate(-50%, -150px) scale(-15deg);
+                transform: translate(-50%, -150px) scale(0.8) rotate(-15deg);
             }
         }
 
@@ -434,20 +440,24 @@
         <div class="bg-pop-yellow border-b-3 border-black text-black font-extrabold text-xs px-4 py-2 flex items-center justify-between gap-2">
             <div class="flex items-center gap-2 truncate">
                 <i class="fa-solid fa-lightbulb text-pop-magenta text-base"></i>
-                <span class="truncate">Petunjuk Pak Guru Muh. Akbar S.: Jika tampilan game butuh login Belajar.id, tekan tombol <strong>"TAB BARU"</strong>!</span>
+                <span class="truncate">Petunjuk Pak Guru Muh. Akbar S.: Jika tampilan game kosong / butuh login Belajar.id, tekan tombol <strong>"TAB BARU"</strong>!</span>
             </div>
-            <button onclick="this.parentElement.remove()" class="text-black font-black hover:text-pop-magenta px-2">
-                <i class="fa-solid fa-xmark"></i>
+            <button onclick="openCurrentInNewTab(event)" class="bg-pop-magenta text-white px-2 py-1 rounded border border-black font-bangers text-xs shadow-pop-sm hover:bg-black">
+                BUKA LANGSUNG 🚀
             </button>
         </div>
 
         <!-- Iframe Container -->
         <div id="iframe-wrapper" class="flex-grow w-full h-full relative bg-slate-900 flex items-center justify-center">
             
-            <div id="iframe-loader" class="absolute inset-0 flex flex-col items-center justify-center bg-pop-dark text-white z-10 gap-3">
+            <div id="iframe-loader" class="absolute inset-0 flex flex-col items-center justify-center bg-pop-dark text-white z-10 gap-3 p-4 text-center">
                 <div class="w-16 h-16 border-6 border-pop-yellow border-t-pop-magenta rounded-full animate-spin"></div>
                 <p class="font-bangers text-2xl text-pop-cyan tracking-wider animate-pulse">MEMUAT GAME EDUKASI...</p>
-                <p class="font-poppins text-xs font-bold text-slate-400">Rumah Game Edukasi SD — SDN 009 Balikpapan Barat</p>
+                <p class="font-poppins text-xs font-bold text-slate-300 max-w-sm">Rumah Game Edukasi SD — SDN 009 Balikpapan Barat</p>
+                
+                <button onclick="openCurrentInNewTab(event)" class="mt-2 pop-btn px-4 py-2 bg-pop-yellow text-black font-bangers text-sm rounded-xl">
+                    JIKA KOSONG, KLIK DI SINI (TAB BARU) ↗️
+                </button>
             </div>
 
             <iframe id="game-iframe" class="w-full h-full border-0 relative z-20" allowfullscreen allow="autoplay; microphone; camera; geolocation"></iframe>
@@ -630,6 +640,7 @@
         let currentGameUrl = '';
         let audioEnabled = true;
         let audioCtx = null;
+        let loaderTimeout = null;
 
         const COMIC_WORDS = ['POW!', 'BAM!', 'SUGOI!', 'AKBAR S.', 'GREAT!', 'EXCELLENT!'];
 
@@ -720,6 +731,7 @@
 
             const iframe = document.getElementById('game-iframe');
             iframe.addEventListener('load', () => {
+                if (loaderTimeout) clearTimeout(loaderTimeout);
                 document.getElementById('iframe-loader').classList.add('hidden');
             });
         });
@@ -864,7 +876,7 @@
 
                 if (url && (url.startsWith('http://') || url.startsWith('https://'))) {
                     result.push({
-                        id: 'sync-' + Date.now() + '-' + Math.random().toString(36).substr(2, 5),
+                        id: 'sync-' + Date.now() + '-' + Math.random().toString(36).substring(2, 7),
                         title: title,
                         category: category,
                         icon: icon || '🎮',
@@ -953,7 +965,7 @@
                 const isActive = activeCategory === cat;
                 return `
                     <button onclick="selectCategory('${cat}', event)" 
-                        class="pop-btn px-4 py-2 rounded-xl text-xs font-bangers tracking-wider text-base transition-all flex items-center gap-2 whitespace-nowrap ${
+                        class="pop-btn px-4 py-2 rounded-xl font-bangers tracking-wider text-base transition-all flex items-center gap-2 whitespace-nowrap ${
                             isActive 
                             ? 'bg-pop-magenta text-white shadow-pop-sm translate-x-[-2px] translate-y-[-2px]' 
                             : 'bg-white text-black hover:bg-pop-yellow'
@@ -1129,6 +1141,12 @@
             const iframe = document.getElementById('game-iframe');
             iframe.src = game.url;
 
+            // Timeout safety for iframe load blocking
+            if (loaderTimeout) clearTimeout(loaderTimeout);
+            loaderTimeout = setTimeout(() => {
+                loader.classList.add('hidden');
+            }, 4500);
+
             const modal = document.getElementById('player-modal');
             modal.classList.remove('hidden');
             modal.classList.add('flex');
@@ -1138,6 +1156,7 @@
         function closeGameModal(event) {
             if (event) event.stopPropagation();
             playSound('click');
+            if (loaderTimeout) clearTimeout(loaderTimeout);
             const modal = document.getElementById('player-modal');
             modal.classList.add('hidden');
             modal.classList.remove('flex');
@@ -1155,6 +1174,12 @@
 
             const iframe = document.getElementById('game-iframe');
             iframe.src = currentGameUrl;
+
+            if (loaderTimeout) clearTimeout(loaderTimeout);
+            loaderTimeout = setTimeout(() => {
+                loader.classList.add('hidden');
+            }, 4500);
+
             showToast('Memuat ulang game...', 'info');
         }
 
